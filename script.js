@@ -12,11 +12,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// filter book code
-
 const filterBooks = () => {
-  const subjectValue = document.getElementById("subject-filter").value;
-  const bookShelfValue = document.getElementById("bookshelf-filter").value;
+  const subjectValue = document
+    .getElementById("subject-filter")
+    .value.toLowerCase();
+  const bookShelfValue = document
+    .getElementById("bookshelf-filter")
+    .value.toLowerCase();
+
+  const filterProduct = books.filter((book) => {
+    const subjectMatch = book.subjects.some((subject) =>
+      subject.toLowerCase().includes(subjectValue)
+    );
+    const bookShelfMatch = book.bookshelves.some((bookShelf) =>
+      bookShelf.toLowerCase().includes(bookShelfValue)
+    );
+    return subjectMatch || bookShelfMatch;
+  });
+  ShowBooks(filterProduct);
 };
 
 const allProductFetch = async () => {
@@ -24,7 +37,6 @@ const allProductFetch = async () => {
     const resp = await fetch(`https://gutendex.com/books/`);
     const data = await resp.json();
     books = data?.results;
-    // console.log(data?.results);
     ShowBooks(data?.results);
   } catch (error) {
     console.log(error);
@@ -54,5 +66,5 @@ const ShowBooks = (book) => {
     bookParent.appendChild(bookItem);
   });
 };
-
+console.log(books?.length);
 window.onload = allProductFetch;
