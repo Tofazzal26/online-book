@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (currentPath === "/wishlist.html") {
     wishList.classList.add("active");
   }
-  if (currentPath === "/") {
+  if (currentPath === "/index.html") {
     homeLink.classList.add("active");
   }
 });
