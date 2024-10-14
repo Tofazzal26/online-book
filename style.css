@@ -1,0 +1,68 @@
+.Navbar {
+  background-color: #162649;
+  padding: 15px 0px;
+}
+
+.parentNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1600px;
+  margin: 0 auto;
+}
+
+.logoParent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+}
+
+.logoParent img {
+  width: 30px;
+}
+
+.logoParent h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.login {
+  padding: 6px 10px;
+  background-color: #fdba74;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.navLink {
+  display: flex;
+  gap: 20px;
+  color: white;
+}
+.navLink li a {
+  font-weight: 600;
+}
+
+.endNavbar img {
+  width: 25px;
+  display: none;
+}
+
+.active {
+  color: #fdba74;
+}
+
+/* responsibe code here */
+
+@media (max-width: 768px) {
+  .parentNavbar {
+    width: 100%;
+  }
+  .navLink {
+    display: none;
+  }
+  .login {
+    display: none;
+  }
+  .endNavbar img {
+    display: block;
+  }
+}
