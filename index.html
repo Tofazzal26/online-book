@@ -31,7 +31,93 @@
         </div>
       </div>
     </header>
-    <h1>Home Page</h1>
+
+    <main class="my-6">
+      <div class="flex ContainerResponse md:flex-row flex-col">
+        <div class="md:w-[390px] px-2">
+          <div>
+            <div class="container mx-auto p-4">
+              <h2 class="text-xl font-semibold mb-4">Filter Books</h2>
+
+              <label for="subject-filter" class="block mb-2 font-semibold"
+                >Select Subject:</label
+              >
+              <select
+                id="subject-filter"
+                class="border rounded p-2 mb-4 md:w-full w-[280px]"
+                onchange="filterBooks()"
+              >
+                <option value="">All</option>
+                <option value="frankenstein-monster">
+                  Frankenstein's monster (Fictitious character)
+                </option>
+                <option value="frankenstein-victor">
+                  Frankenstein, Victor (Fictitious character)
+                </option>
+                <option value="gothic-fiction">Gothic fiction</option>
+                <option value="horror-tales">Horror tales</option>
+                <option value="monsters">Monsters</option>
+                <option value="science-fiction">Science fiction</option>
+                <option value="scientists">Scientists</option>
+              </select>
+
+              <label for="bookshelf-filter" class="block mb-2 font-semibold"
+                >Select Bookshelf:</label
+              >
+              <select
+                id="bookshelf-filter"
+                class="border rounded p-2 md:w-full w-[280px]"
+                onchange="filterBooks()"
+              >
+                <option value="">All</option>
+                <option value="culture-civilization-society">
+                  Browsing: Culture/Civilization/Society
+                </option>
+                <option value="fiction">Browsing: Fiction</option>
+                <option value="gender-sexuality-studies">
+                  Browsing: Gender & Sexuality Studies
+                </option>
+                <option value="literature">Browsing: Literature</option>
+                <option value="science-fiction-fantasy">
+                  Browsing: Science-Fiction & Fantasy
+                </option>
+                <option value="gothic-fiction">Gothic Fiction</option>
+                <option value="movie-books">Movie Books</option>
+                <option value="precursors-science-fiction">
+                  Precursors of Science Fiction
+                </option>
+                <option value="science-fiction-women">
+                  Science Fiction by Women
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full px-6">
+          <div
+            class="flex md:flex-row flex-col md:justify-between md:items-center"
+          >
+            <h2 class="font-semibold">Showing all 15 results</h2>
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Search Product"
+                class="outline-none border-2 px-4 py-2 rounded-md relative font-semibold"
+              />
+              <img
+                src="/loupe.png"
+                alt=""
+                class="w-[18px] absolute md:top-[13px] md:right-[12px] top-[13px] right-[100px]"
+              />
+            </div>
+          </div>
+          <div class="mt-4">
+            <div id="productParent"></div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <footer>
       <footer class="px-4 divide-y dark:bg-gray-100 dark:text-gray-800">

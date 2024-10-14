@@ -11,6 +11,11 @@
   margin: 0 auto;
 }
 
+.ContainerResponse {
+  width: 1600px;
+  margin: 0 auto;
+}
+
 .logoParent {
   display: flex;
   align-items: center;
@@ -64,5 +69,8 @@
   }
   .endNavbar img {
     display: block;
+  }
+  .ContainerResponse {
+    width: 100%;
   }
 }
