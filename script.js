@@ -14,6 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+const searchProduct = () => {
+  const search = document.getElementById("search").value.toLowerCase();
+  const searchProductFilter = books.filter((book) => {
+    return book.title.toLowerCase().includes(search);
+  });
+  ShowBooks(searchProductFilter);
+};
+
 const filterBooks = () => {
   const subjectValue = document
     .getElementById("subject-filter")
