@@ -54,6 +54,68 @@ const allProductFetch = async () => {
   }
 };
 
+const addWishList = (prd) => {
+  const existWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  existWishlist.push(prd);
+  localStorage.setItem("wishlist", JSON.stringify(existWishlist));
+  alert("Wishlist Add Success");
+};
+
+const showWishList = async () => {
+  try {
+    const wishList = JSON.parse(localStorage.getItem("wishlist"));
+    if (wishList.length === 0) {
+      console.log("no items in the wishlist");
+      return;
+    }
+    wishList.forEach((wish) => {
+      const tableTr = document.getElementById("tableTr");
+      tableTr.innerHTML = "";
+
+      const tr = document.createElement("tr");
+      tr.className =
+        "border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50";
+
+      tr.innerHTML = ` <td class="p-3">
+      <img src="${wish?.formats["image/jpeg"]}" class="w-[50px]"/>
+    </td>
+    <td class="p-3 text-base">
+      <p>${wish.title}}</p>
+    </td>
+    <td class="p-3 text-base">
+      <p>${wish?.authors[0].name}</p>
+    </td>
+    <td class="p-3 text-base">
+      <p>${wish?.id}</p>
+    </td>
+
+    <td class="p-3 text-right text-base">
+      <span
+        class="px-3 py-2 font-semibold rounded-md bg-red-500 dark:text-gray-50"
+      >
+        <button class="remove-wishlist" dataId="${wish.id}">Delete</button>
+      </span>
+    </td>`;
+
+      tableTr.appendChild(tr);
+    });
+    document.querySelectorAll(".remove-wishlist").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        removeWishList(event.target.getAttribute("dataId"));
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const removeWishList = (id) => {
+  let wishList = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishList = wishList.filter((item) => item.id !== parseInt(id));
+  localStorage.setItem("wishlist", JSON.stringify(wishList));
+  showWishList();
+};
+removeWishList();
 const ShowBooks = (book) => {
   const bookParent = document.getElementById("productParent");
   bookParent.innerHTML = "";
@@ -70,7 +132,10 @@ const ShowBooks = (book) => {
     <img src="${item.formats["image/jpeg"]}" alt="" class="object-cover object-center w-full rounded-t-md md:h-72 dark:bg-gray-500">
     <div class="flex flex-col justify-between p-6 space-y-8">
       <div class="space-y-2">
+      <div class="flex justify-between items-center">
       <span>Product Id : ${item.id}</span>
+      <button class="add-to-wishlist flex gap-2 items-center"><img src="/heart.png" class="w-[18px]"/> Wishlist</button>
+      </div>
       <p class="dark:text-gray-800">${item?.authors[0]?.name}</p>
         <h2 class="text-xl font-semibold tracking-wide">${item.title}</h2>
         <h2>${item.subjects[2]}</h2>
@@ -80,6 +145,9 @@ const ShowBooks = (book) => {
     </div>
   </div>`;
     bookParent.appendChild(bookItem);
+    bookItem.querySelector(".add-to-wishlist").addEventListener("click", () => {
+      addWishList(item);
+    });
   });
   ProductPagination(book?.length);
 };
@@ -101,5 +169,5 @@ const ProductPagination = (totalBooks) => {
     paginationParent.appendChild(button);
   }
 };
-
+showWishList();
 window.onload = allProductFetch;
