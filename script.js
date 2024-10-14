@@ -1,4 +1,6 @@
 let books = [];
+let currentPage = 1;
+const bookPerPage = 6;
 
 document.addEventListener("DOMContentLoaded", function () {
   const currentPath = window.location.pathname;
@@ -29,6 +31,7 @@ const filterBooks = () => {
     );
     return subjectMatch || bookShelfMatch;
   });
+  currentPage = 1;
   ShowBooks(filterProduct);
 };
 
@@ -46,8 +49,13 @@ const allProductFetch = async () => {
 const ShowBooks = (book) => {
   const bookParent = document.getElementById("productParent");
   bookParent.innerHTML = "";
+
+  const startIndex = (currentPage - 1) * bookPerPage;
+  const endIndex = startIndex + bookPerPage;
+  const paginatedBooks = book.slice(startIndex, endIndex);
+
   bookParent.className = "grid grid-cols-1 md:grid-cols-3 gap-6 ";
-  book.forEach((item) => {
+  paginatedBooks.forEach((item) => {
     const bookItem = document.createElement("div");
     bookItem.className = "";
     bookItem.innerHTML = `<div class="rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
@@ -65,6 +73,25 @@ const ShowBooks = (book) => {
   </div>`;
     bookParent.appendChild(bookItem);
   });
+  ProductPagination(book?.length);
 };
-console.log(books?.length);
+
+const ProductPagination = (totalBooks) => {
+  const paginationParent = document.querySelector(".paginationParent");
+  paginationParent.innerHTML = "";
+  const totalPages = Math.ceil(totalBooks / bookPerPage);
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.innerText = i;
+    button.className = `pagination-button bg-[#162649] px-4 py-2 rounded-md ${
+      i === currentPage ? "active" : "text-white"
+    }`;
+    button.onclick = () => {
+      currentPage = i;
+      ShowBooks(books);
+    };
+    paginationParent.appendChild(button);
+  }
+};
+
 window.onload = allProductFetch;
