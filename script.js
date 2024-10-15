@@ -64,14 +64,13 @@ const addWishList = (prd) => {
 const showWishList = async () => {
   try {
     const wishList = JSON.parse(localStorage.getItem("wishlist"));
+    const tableTr = document.getElementById("tableTr");
+    tableTr.innerHTML = "";
     if (wishList.length === 0) {
       console.log("no items in the wishlist");
       return;
     }
     wishList.forEach((wish) => {
-      const tableTr = document.getElementById("tableTr");
-      tableTr.innerHTML = "";
-
       const tr = document.createElement("tr");
       tr.className =
         "border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50";
@@ -115,7 +114,7 @@ const removeWishList = (id) => {
   localStorage.setItem("wishlist", JSON.stringify(wishList));
   showWishList();
 };
-removeWishList();
+
 const ShowBooks = (book) => {
   const bookParent = document.getElementById("productParent");
   bookParent.innerHTML = "";
@@ -169,5 +168,6 @@ const ProductPagination = (totalBooks) => {
     paginationParent.appendChild(button);
   }
 };
+removeWishList();
 showWishList();
 window.onload = allProductFetch;
