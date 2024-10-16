@@ -27,7 +27,14 @@
         </div>
         <div class="endNavbar">
           <button class="login">Login</button>
-          <img src="/menu.png" alt="" />
+          <div class="mobileNavbar">
+            <ul
+              class="navLinkPhone md:hidden flex text-white gap-4 pr-3 font-semibold"
+            >
+              <li><a href="index.html" id="homeLink">Home</a></li>
+              <li><a href="wishlist.html" id="wishList">Wishlist</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
@@ -53,9 +60,7 @@
                 <th class="p-3 text-base">Status</th>
               </tr>
             </thead>
-            <tbody id="tableTr">
-             
-            </tbody>
+            <tbody id="tableTr"></tbody>
           </table>
         </div>
       </div>

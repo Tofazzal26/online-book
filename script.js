@@ -226,4 +226,4 @@ const hideLoadingSpin = () => {
 AllDetailsProduct();
 removeWishList();
 showWishList();
-window.onload = allProductFetch;
+allProductFetch();
