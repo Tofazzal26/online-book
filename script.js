@@ -1,4 +1,5 @@
 let books = [];
+let loading = false;
 let currentPage = 1;
 const bookPerPage = 6;
 
@@ -45,10 +46,14 @@ const filterBooks = () => {
 
 const allProductFetch = async () => {
   try {
+    loading = true;
+    showLoadingSpin();
     const resp = await fetch(`https://gutendex.com/books/`);
     const data = await resp.json();
     books = data?.results;
     ShowBooks(data?.results);
+    loading = false;
+    hideLoadingSpin();
   } catch (error) {
     console.log(error);
   }
@@ -202,6 +207,20 @@ const ProductPagination = (totalBooks) => {
       ShowBooks(books);
     };
     paginationParent.appendChild(button);
+  }
+};
+
+const showLoadingSpin = () => {
+  const spin = document.getElementById("loadingSpin");
+  if (spin) {
+    spin.innerHTML = `<div class="w-10 h-10 border-4 border-dashed rounded-full animate-spin dark:border-blue-600"></div>`;
+  }
+};
+
+const hideLoadingSpin = () => {
+  const spin = document.getElementById("loadingSpin");
+  if (spin) {
+    spin.innerHTML = "";
   }
 };
 AllDetailsProduct();
