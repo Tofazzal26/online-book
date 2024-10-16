@@ -115,6 +115,36 @@ const removeWishList = (id) => {
   showWishList();
 };
 
+const AllDetailsProduct = () => {
+  const parent = document.getElementById("detailsParent");
+  const detailsProduct = JSON.parse(localStorage.getItem("productDetails"));
+  if (parent) {
+    if (detailsProduct) {
+      const div = document.createElement("div");
+      div.innerHTML = `<div class="flex md:flex-row justify-center flex-col md:items-center gap-6">
+    <div><img src="${
+      detailsProduct?.formats["image/jpeg"]
+    }" alt="" class="w-full"/></div>
+    <div class="space-y-2">
+    <h2>${detailsProduct?.id}</h2>
+    <h2>${detailsProduct?.languages[0] === "en" && "English"}</h2>
+    <h2>Type: ${detailsProduct?.media_type}</h2>
+    <h2>Download: ${detailsProduct?.download_count}</h2>
+    <h2>${detailsProduct?.title}</h2>
+    <h2>${detailsProduct?.authors[0].name}</h2>
+    <h2>${detailsProduct?.subjects[3]}</h2>
+    <h2>${detailsProduct?.bookshelves[2]}</h2>
+    <button class="add-to-wishlist flex gap-2 items-center"><img src="/heart.png" class="w-[18px]"/> Wishlist</button>
+    </div>
+  </div>`;
+      parent.appendChild(div);
+      div.querySelector(".add-to-wishlist").addEventListener("click", () => {
+        addWishList(detailsProduct);
+      });
+    }
+  }
+};
+
 const ShowBooks = (book) => {
   const bookParent = document.getElementById("productParent");
   bookParent.innerHTML = "";
@@ -140,12 +170,18 @@ const ShowBooks = (book) => {
         <h2>${item.subjects[2]}</h2>
         <h2>${item.bookshelves[2]}</h2>
       </div>
-      <button type="button" class="flex items-center justify-center md:w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-600 dark:text-gray-50">Show Details</button>
+      <a href="details.html"><button type="button" class="more-details flex items-center justify-center md:w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-600 dark:text-gray-50">Show Details</button></a>
+      
     </div>
   </div>`;
     bookParent.appendChild(bookItem);
     bookItem.querySelector(".add-to-wishlist").addEventListener("click", () => {
       addWishList(item);
+    });
+    bookItem.querySelector(".more-details").addEventListener("click", () => {
+      localStorage.setItem("productDetails", JSON.stringify(item));
+      window.location.href = "details.html";
+      // AllDetailsProduct(item);
     });
   });
   ProductPagination(book?.length);
@@ -168,6 +204,7 @@ const ProductPagination = (totalBooks) => {
     paginationParent.appendChild(button);
   }
 };
+AllDetailsProduct();
 removeWishList();
 showWishList();
 window.onload = allProductFetch;
