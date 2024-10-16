@@ -157,7 +157,7 @@ const ShowBooks = (book) => {
   paginatedBooks.forEach((item) => {
     const bookItem = document.createElement("div");
     bookItem.className = "";
-    bookItem.innerHTML = `<div class="rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
+    bookItem.innerHTML = `<div class="card rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
     <img src="${item.formats["image/jpeg"]}" alt="" class="object-cover object-center w-full rounded-t-md md:h-72 dark:bg-gray-500">
     <div class="flex flex-col justify-between p-6 space-y-8">
       <div class="space-y-2">
